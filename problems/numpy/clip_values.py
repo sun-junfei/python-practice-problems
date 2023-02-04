@@ -13,8 +13,14 @@ def clip_values(x, min_val=None, max_val=None):
     """
 
     # YOUR CODE HERE
+    output_array = np.copy(x)
+    if min_val is not None:
+        output_array[min_val > output_array] = min_val
+    if max_val is not None:
+        output_array[max_val < output_array] = max_val
+
     # Replace None with an appropriate return value
-    return None
+    return output_array
 
 
 #############################################################

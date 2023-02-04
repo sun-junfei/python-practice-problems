@@ -8,10 +8,14 @@ def select_row_col(x, row_idx=None, col_idx=None):
     Returns: a two-dimensional array where we have selected based on the 
         specified row_idx and col_idx
     """
-
+    
     # YOUR CODE HERE
     # Replace None with an appropriate return value
-    return None
+    if row_idx is not None:
+        x = x[row_idx, :]
+    if col_idx is not None:
+        x = x[: , col_idx]
+    return x
 
 
 #############################################################

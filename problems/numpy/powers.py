@@ -12,7 +12,7 @@ def powers(N, p):
 
     # YOUR CODE HERE
     # Replace None with an appropriate return value
-    return None
+    return p ** np.arange(0, N)
 
 
 #############################################################

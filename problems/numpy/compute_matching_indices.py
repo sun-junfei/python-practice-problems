@@ -11,7 +11,7 @@ def compute_matching_indices(x, y):
 
     # YOUR CODE HERE
     # Replace None with an appropriate return value
-    return None
+    return np.array(np.nonzero(x == y)[0], dtype="int")
     
 
 #############################################################

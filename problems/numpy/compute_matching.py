@@ -11,7 +11,7 @@ def compute_matching(x, y):
 
     # YOUR CODE HERE
     # Replace None with an appropriate return value
-    return None
+    return x == y
 
 
 #############################################################
