@@ -19,8 +19,24 @@ def part1(rules):
 
     Returns an integer
     """
-    ### Replace with your code
-    return None
+    bags = set()
+    def dfs(start, path, rules, visited):
+        visited.add(start)
+        path.append(start)
+        for child_tuple in rules[start]:
+            if child_tuple[0] == 'shiny gold':
+                for bag in path:
+                    bags.add(bag)
+            if child_tuple[0] not in visited:
+                dfs(child_tuple[0], path, rules, visited)
+        path.pop()
+    
+    for start in rules.keys():
+        dfs(start, [], rules, set())
+    
+    return len(bags)
+        
+        
 
 
 def part2(rules):
@@ -33,10 +49,14 @@ def part2(rules):
 
     Returns an integer
     """
-
-    ### Replace with your code
-    return None
-
+    def dfs(bag, rules):
+        counter = 0
+        for child_tuple in rules[bag]:
+            counter += (dfs(child_tuple[0], rules) * int(child_tuple[1]))
+        
+        return 1 + counter
+    
+    return dfs('shiny gold', rules) - 1
 
 ############################################
 ###                                      ###
@@ -88,7 +108,7 @@ if __name__ == "__main__":
         lines = f.read().strip().split("\n")
         rules = read_rules(lines)
 
-    print(f"Part 1:", part1(rules))
+    # print(f"Part 1:", part1(rules))
     
     # Uncomment the following line when you're ready to work on Part 2
-    #print(f"Part 2:", part2(rules))
+    print(f"Part 2:", part2(rules))

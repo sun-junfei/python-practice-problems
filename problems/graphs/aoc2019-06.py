@@ -19,8 +19,21 @@ def part1(orbits):
 
     Returns an integer
     """
-    ### Replace with your code
-    return None
+
+
+    def helper(node, graph):
+        orb_count = 0
+        if node not in graph.keys():
+            return orb_count
+
+        orb_count += (helper(graph[node], graph) + 1)
+        return orb_count
+    
+    orb_num = 0
+    for star in orbits.keys():
+        orb_num += helper(star, orbits)
+    
+    return orb_num
 
 
 def part2(orbits):
@@ -33,8 +46,42 @@ def part2(orbits):
 
     Returns an integer
     """
-    ### Replace with your code
-    return None
+    orb_graph = {}
+    for key in orbits.keys():
+        if orbits[key] not in orb_graph.keys():
+            orb_graph[orbits[key]] = []
+        orb_graph[orbits[key]].append(key)
+        
+        if key not in orb_graph.keys():
+            orb_graph[key] = []
+        orb_graph[key].append(orbits[key])
+    
+    
+    def BFS(start, graph):
+        route = {}
+        queue = []
+        explored = set()
+        queue.append(start)
+        explored.add(start)
+        while queue:
+            v = queue.pop()
+            for child in graph[v]:
+                if child == 'SAN':
+                    return v, route
+                if child not in explored:
+                    queue.append(child)
+                    explored.add(child)
+                    route[child] = v
+        return None
+    
+    key, route = BFS('YOU', orb_graph)
+    road_length = 0
+    while route[key] != 'YOU':
+        key = route[key]
+        road_length +=1 
+    return road_length
+    
+
 
 
 
@@ -66,7 +113,7 @@ if __name__ == "__main__":
         for p1, p2 in objs:
             orbits[p2] = p1
 
-    print(f"Part 1:", part1(orbits))
+    #print(f"Part 1:", part1(orbits))
     
     # Uncomment the following line when you're ready to work on Part 2
-    #print(f"Part 2:", part2(orbits))
+    print(f"Part 2:", part2(orbits))
